@@ -7,4 +7,4 @@ https://stooq.com/q/l/?s={STOCK_CODE}.us&f=sd2t2ohlcv&h&e=csv,
 
 
 
-Para poder ejecutarse de debe de correr de modo local con python y a tra vez de consola 
+Para poder ejecutarse de debe de correr de modo local con python y atravez de consola 
