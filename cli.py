@@ -33,6 +33,34 @@ def guardar_precio(stock_code, price):
         writer = csv.writer(file)
         writer.writerow([stock_code, price, fecha_actual])
 
+# Eliminar una entrada del historial de precios
+def eliminar_entrada_historial():
+    if not os.path.exists('historial.csv'):
+        print("Aún no hay historial, primero intenta buscar una acción")
+        return
+
+    print("Historial de precios:")
+    mostrar_historial()
+
+    entrada_a_eliminar = input("Ingrese el código de la acción que desea eliminar del historial: ")
+
+    # Leer el historial y crear una lista de entradas excluyendo la entrada a eliminar
+    nuevas_entradas = []
+    with open('historial.csv', mode='r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row[0] != entrada_a_eliminar:
+                nuevas_entradas.append(row)
+
+    # Sobrescribir el historial con las nuevas entradas
+    with open('historial.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        for entrada in nuevas_entradas:
+            writer.writerow(entrada)
+
+    print(f"La entrada para {entrada_a_eliminar} ha sido eliminada del historial de precios.")
+
+
 # Obtener el historial de precios guardados en el CSV
 def mostrar_historial():
     if not os.path.exists('historial.csv'):
@@ -83,7 +111,8 @@ def main():
         print("1. Consultar precio de una acción")
         print("2. Mostrar historial de precios")
         print("3. Mostrar gráfico de variación de precios")
-        print("4. Salir")
+        print("4. Eliminar entrada del historial de precios")
+        print("5. Salir")
 
         opcion = input("Seleccione una opción: ")
 
@@ -103,8 +132,10 @@ def main():
             mostrar_grafico()
 
         elif opcion == '4':
-            break
+            eliminar_entrada_historial()
 
+        elif opcion == '5':
+            break
         else:
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
